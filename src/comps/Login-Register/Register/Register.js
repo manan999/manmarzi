@@ -1,11 +1,45 @@
 import React, { Component } from 'react';
 import valid from 'validator' ;
+import { Redirect } from 'react-router-dom';
+import { store } from 'react-notifications-component' ;
 
 import LogoTitle from '../../LogoTitle/LogoTitle.js' ;
 import Form from '../../Form/Form.js' ;
 import Header from '../../Header/Header.js' ;
 import Text from '../../text/Text.js' ;
 import '../loginreg.css' ;
+
+const notifObj = {
+  title: "Success!",
+  message: "Successfully Registered",
+  type: "success",
+  container: "bottom-right",
+  dismiss: {
+    duration: 3000,
+    onScreen: true
+  }
+} ;
+
+const notifObj2 = {
+  title: "Error!",
+  type: "danger",
+  container: "bottom-right",
+  dismiss: {
+    duration: 3000,
+    onScreen: true
+  }
+} ;
+
+const notifObj3 = {
+  title: "Loading...",
+  message: "Please Wait...",
+  type: "info",
+  container: "bottom-right",
+  dismiss: {
+    duration: 5000,
+    onScreen: true
+  }
+} ;
 
 const initUser = {
 	name: '',
@@ -26,26 +60,34 @@ class Register extends Component
 		if(this.state.error === '')
 		{	const {name, username, email, password} = this.state.data
 			const obj = { name, username, email, password } ;
-			console.log(obj) ;
-			// fetch('https://ov-api.herokuapp.com/users',{
-			// 	method : 'post' ,
-			// 	headers : { 'Content-Type' : 'application/json'} ,
-			// 	body :JSON.stringify(obj) ,
-			// })
-			// .then(res => {
-			// 	if(res.ok)
-			// 		return res.json() ;
-			// 	else
-			// 		throw Error(res.statusText) ;
-			// })
-			// .then(data => {	
-			// 	this.setState({username: '', pw: '', rpw: '', email: ''});
+			// console.log(obj) ;
+			
+    		const id = store.addNotification(notifObj3);
+			fetch('https://manmarzi.herokuapp.com/users',{
+				method : 'post' ,
+				headers : { 'Content-Type' : 'application/json'} ,
+				body :JSON.stringify(obj) ,
+			})
+			.then(res => {
+				if(res.ok)
+					return res.json() ;
+				else
+					throw Error(res.statusText) ;
+			})
+			.then(data => {	
+				store.removeNotification(id) ;	
+				this.setState( {data: initUser} );
 				
-			// 	this.props.setUser(data) ;
+    			store.addNotification(notifObj);
+				this.props.setUser(data) ;
 
-			// 	this.props.history.push('/');
-			// }) 
-			// .catch( err  => console.log(err) ) ;
+				this.props.history.push('/home');
+			}) 
+			.catch( err  => {
+				console.log(err) ;
+				notifObj2.message = err.message ;
+    			store.addNotification(notifObj2);
+			}) ;
 		}
 		else
 		{
@@ -115,21 +157,26 @@ class Register extends Component
 
 	render() {
 		const {name, email, password, repass, username} = this.state.data ;
-		return (
-			<div className="register">
-				<Header />
-				<LogoTitle small="yes"/>
-				<Form title=" Registration Form " error={this.state.error}
-					b2="Submit &gt;&nbsp;" onb2Click={this.onSubmitClick} 
-					b1="&lt;&nbsp; Login" b1type="link" to="/login">
-					<Text label="Name" value={name} onChange={this.onNameChange}/>
-					<Text label="Username" value={username} onChange={this.onUsernameChange}/>
-					<Text label="E-Mail" value={email} onChange={this.onEmailChange}/>
-					<Text label="Password" value={password} type="pw" onChange={this.onPasswordChange}/>
-					<Text label="Retype Password" value={repass} type="pw" onChange={this.onRepassChange}/>
-				</Form>
-			</div>
-		);
+		if(this.props.user)
+			return <Redirect to='/home' />
+		else
+		{	
+			return (
+				<div className="register">
+					<Header />
+					<LogoTitle small="yes"/>
+					<Form title=" Registration Form " error={this.state.error}
+						b2="Submit &gt;&nbsp;" onb2Click={this.onSubmitClick} 
+						b1="&lt;&nbsp; Login" b1type="link" to="/login">
+						<Text label="Name" value={name} onChange={this.onNameChange}/>
+						<Text label="Username" value={username} onChange={this.onUsernameChange}/>
+						<Text label="E-Mail" value={email} onChange={this.onEmailChange}/>
+						<Text label="Password" value={password} type="pw" onChange={this.onPasswordChange}/>
+						<Text label="Retype Password" value={repass} type="pw" onChange={this.onRepassChange}/>
+					</Form>
+				</div>
+			);
+		}
 	}
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import socketIOClient from "socket.io-client";
 import { BrowserRouter, Route, Switch } from 'react-router-dom' ;
-import ReactNotification, { store } from 'react-notifications-component' ;
+import ReactNotification from 'react-notifications-component' ;
 import 'react-notifications-component/dist/theme.css' ;
 
 import './app.css' ;
@@ -10,17 +10,6 @@ import Home from './comps/Home/Home.js' ;
 import Login from './comps/Login-Register/Login/Login.js' ;
 import Register from './comps/Login-Register/Register/Register.js' ;
 import Main from './comps/Main/Main.js' ;
-
-const notifObj = {
-  title: "Success!",
-  message: "Successfully logged in",
-  type: "success",
-  container: "bottom-right",
-  dismiss: {
-    duration: 4000,
-    onScreen: true
-  }
-} ;
 
 class App extends React.Component
 { 
@@ -43,7 +32,6 @@ class App extends React.Component
   //For Logging In User
   setUser = (data) => {
     this.setState({user: data});
-    store.addNotification(notifObj);
   }
 
   //Check if user is logged in
@@ -51,6 +39,8 @@ class App extends React.Component
     if( this.state.user.user )
       if(str === 'token')
         return this.state.user.token ;
+      else if(str === 'user') 
+        return this.state.user.user ;
       else
         return this.state.user.user.name ;
     else 
@@ -90,9 +80,9 @@ class App extends React.Component
           <div>
             <Switch>
               <Route path='/' exact render={props=><Home {...props} user={this.checkUser('name')}/>} />
-              <Route path='/home' exact render={props=><Main {...props} />} />
-              <Route path='/login' exact render={props=><Login {...props} setUser={this.setUser} />} />
-              <Route path='/register' exact render={props=><Register {...props} setUser={this.setUser} />} />
+              <Route path='/home' exact render={props=><Main {...props} user={this.checkUser('user')}/>} />
+              <Route path='/login' exact render={props=><Login {...props} setUser={this.setUser} user={this.checkUser()}/>} />
+              <Route path='/register' exact render={props=><Register {...props} setUser={this.setUser} user={this.checkUser()}/>} />
               <Route exact component={NotFound} />
             </Switch>
           </div>
