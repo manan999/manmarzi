@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
 .App
 {	
 	color: white;
 	height: 100vh ;
 	width: 100% ;
+	font-family: 'Noto Sans', sans-serif;
 }
 
 *:focus

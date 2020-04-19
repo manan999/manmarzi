@@ -1,0 +1,82 @@
+.main-div
+{
+	display: flex;
+	height: 100vh;
+}
+
+.main-div div
+{
+	flex: 1 1 0;
+	/*border: 1px solid black ;*/
+}
+
+.left-col, .mid-col, .right-col
+{
+	display: flex;
+	flex-direction: column;
+	border-left: 1px solid darkgrey;
+}
+
+.left-col>div, .mid-col>div, .right-col>div, .left-head>*
+{
+	flex: 1 1 auto;
+}
+
+.left-chats
+{
+	height: 65vh;
+	background-color: #e9f0ea;
+}
+
+.mid-chats
+{
+	height: 74vh;
+	background-color: #e9f0ea;
+}
+
+.right-chats
+{
+	height: 56vh;
+	background-color: #e9f0ea;
+}
+
+.left-head, .left-btn
+{
+	display: flex;
+}
+
+.search
+{
+	display: flex ;
+	justify-content: center;
+	background-color: #e9f0ea;
+	padding-bottom: .5em ; 
+	border-bottom: 1px solid darkgrey ;
+}
+
+.search-inp
+{
+	color: green ;
+	background-color: transparent;
+	border: none;
+	border: 2px solid green ;
+	border-bottom-right-radius: 999rem ;
+	border-top-right-radius: 999rem ;
+	border-left: none ;
+	font-size: 1.3rem ;
+	margin: 0em ;
+}
+
+.search-i
+{
+	border: 2px solid green ;
+	border-bottom-left-radius: 999rem ;
+	border-top-left-radius: 999rem ;
+	border-right: none ;
+	margin : 0;
+}
+
+.sea-i
+{
+	margin: 1em 0.4em 0 0.4em ;
+}

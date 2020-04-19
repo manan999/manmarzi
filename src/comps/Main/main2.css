@@ -1,0 +1,32 @@
+.left-btn
+{
+	background-color: #e9f0ea;
+	justify-content: space-around;
+}
+
+.main-btn
+{
+	background-color: rgb(15, 150, 89) ;
+	color: white ;
+	border: none ;
+	margin: .7em;
+	font-size: 1rem;
+	border-radius: .5rem ;
+	border: 2px solid rgb(15, 150, 89);
+}
+
+#lo-btn
+{
+	margin: .7em 1.2em ; 
+}
+
+.main-btn:hover
+{
+	border: 2px solid black;
+	transform: scale(1.1);
+}
+
+.right-dropdown
+{
+	background-color: #e9f0ea;
+}
