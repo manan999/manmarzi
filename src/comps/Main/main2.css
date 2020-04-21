@@ -13,20 +13,39 @@
 	font-size: 1rem;
 	border-radius: .5rem ;
 	border: 2px solid rgb(15, 150, 89);
+	transition: all 0.2s ;
+	cursor: pointer;
+	padding: .5em ;
 }
 
-#lo-btn
+/*#lo-btn
 {
 	margin: .7em 1.2em ; 
+}*/
+
+.icon-btn
+{
+	margin: .4em .6em ;
 }
 
 .main-btn:hover
 {
 	border: 2px solid black;
 	transform: scale(1.1);
+	background-color: rgb(15, 160, 90) ;
 }
 
 .right-dropdown
 {
 	background-color: #e9f0ea;
+}
+
+.icon
+{
+	width:3vw ;
+	padding-top: 0.2em ;
+}
+.picture
+{
+	margin: auto 1em ;
 }

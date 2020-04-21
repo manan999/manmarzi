@@ -1,44 +1,12 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { store } from 'react-notifications-component' ;
 
+import { addNotif, remNotif } from '../../notif.js' ;
 import LogoTitle from '../../LogoTitle/LogoTitle.js' ;
 import Form from '../../Form/Form.js' ;
 import Header from '../../Header/Header.js' ;
 import Text from '../../text/Text.js' ;
 import '../loginreg.css' ;
-
-const notifObj = {
-  title: "Success!",
-  message: "Successfully Logged In",
-  type: "success",
-  container: "bottom-right",
-  dismiss: {
-    duration: 3000,
-    onScreen: true
-  }
-} ;
-
-const notifObj2 = {
-  title: "Error!",
-  type: "danger",
-  container: "bottom-right",
-  dismiss: {
-    duration: 3000,
-    onScreen: true
-  }
-} ;
-
-const notifObj3 = {
-  title: "Loading...",
-  message: "Please Wait...",
-  type: "info",
-  container: "bottom-right",
-  dismiss: {
-    duration: 5000,
-    onScreen: true
-  }
-} ;
 
 const initUser = {
 	email: '',
@@ -59,9 +27,8 @@ class Login extends Component
 				email : this.state.data.email ,
 				password : this.state.data.password
 			} ;
-			// console.log(obj) ;
 
-    		const id = store.addNotification(notifObj3);
+    		const id = addNotif('Please Wait...') ;
 			fetch('https://manmarzi.herokuapp.com/login',{
 				method : 'post' ,
 				headers : { 'Content-Type' : 'application/json'} ,
@@ -74,18 +41,19 @@ class Login extends Component
 					throw Error(res.statusText) ;
 			})
 			.then(data =>{
-				store.removeNotification(id) ;	
 				this.setState({data: initUser});
 				
-    			store.addNotification(notifObj);
+				remNotif(id) ;	
+    			addNotif('Successfully Logged In', 'success') ;
+				
 				this.props.setUser(data) ;
-
 				this.props.history.push('/home');
 			}) 
 			.catch( err  => {
 				console.log(err) ;
-				notifObj2.message = err.message ;
-    			store.addNotification(notifObj2);
+				
+				remNotif(id) ;	
+    			addNotif(err.message, 'error') ;
 			}) ;
 		}
 		else

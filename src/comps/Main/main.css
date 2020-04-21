@@ -17,30 +17,36 @@
 	border-left: 1px solid darkgrey;
 }
 
-.left-col>div, .mid-col>div, .right-col>div, .left-head>*
+.left-col>div, .mid-col>div, .right-col>div
 {
 	flex: 1 1 auto;
 }
 
 .left-chats
 {
-	height: 65vh;
+	height: 74vh;
 	background-color: #e9f0ea;
 }
 
 .mid-chats
 {
-	height: 74vh;
+	height: 83vh;
 	background-color: #e9f0ea;
+}
+
+.mid-box
+{
+	height: 9vh ;
 }
 
 .right-chats
 {
-	height: 56vh;
+	height: 68vh;
 	background-color: #e9f0ea;
+	/*background-image: url('../images/bg3.png');*/
 }
 
-.left-head, .left-btn
+.left-head, .left-btn, .mid-head, .right-head
 {
 	display: flex;
 }
@@ -52,6 +58,7 @@
 	background-color: #e9f0ea;
 	padding-bottom: .5em ; 
 	border-bottom: 1px solid darkgrey ;
+	padding: .5em 0 ;
 }
 
 .search-inp
@@ -78,5 +85,5 @@
 
 .sea-i
 {
-	margin: 1em 0.4em 0 0.4em ;
+	margin: .5em 0.4em 0 0.4em ;
 }
