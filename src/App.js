@@ -80,7 +80,7 @@ class App extends React.Component
           <div>
             <Switch>
               <Route path='/' exact render={props=><Home {...props} user={this.checkUser('name')}/>} />
-              <Route path='/home' exact render={props=><Main {...props} user={this.checkUser('user')}/>} />
+              <Route path='/home' exact render={props=><Main {...props} usertoken={this.checkUser('token')} user={this.checkUser('user')} setUser={this.setUser}/>} />
               <Route path='/login' exact render={props=><Login {...props} setUser={this.setUser} user={this.checkUser()}/>} />
               <Route path='/register' exact render={props=><Register {...props} setUser={this.setUser} user={this.checkUser()}/>} />
               <Route exact component={NotFound} />

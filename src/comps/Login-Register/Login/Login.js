@@ -41,9 +41,9 @@ class Login extends Component
 					throw Error(res.statusText) ;
 			})
 			.then(data =>{
-				this.setState({data: initUser});
-				
 				remNotif(id) ;	
+				
+				this.setState({data: initUser});
     			addNotif('Successfully Logged In', 'success') ;
 				
 				this.props.setUser(data) ;
